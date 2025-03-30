@@ -21,6 +21,16 @@ jobs:
       - name: Generate Unique Build ID
         run: echo "BUILD_ID=$(date +%s)" >> $GITHUB_ENV
 
+      - name: List Running Containers in GitHub Runner
+        run: docker ps -a
+
+      - name: Ensure Parasoft Container is Running
+        run: |
+          if [ ! "$(docker ps -q -f name=cpp_project)" ]; then
+            echo "Starting cpp_project container..."
+            docker run -d --name cpp_project parasoft/cpptestcli:latest tail -f /dev/null
+          fi
+
       - name: Run Parasoft C++test in Docker
         run: |
           docker exec cpp_project cpptestcli -config "builtin://SEI CERT C++ Rules" \
