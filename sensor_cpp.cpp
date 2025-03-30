@@ -66,7 +66,7 @@ private:
     static constexpr int STATUS_OK = 0;
     static constexpr int STATUS_FAILED = 1;
     static constexpr int STATUS_STOPPED = 2;
-    static constexpr int MAX_NUMBER_OF_SAMPLES = 30;
+    static constexpr int MAX_NUMBER_OF_SAMPLES = 34;
 
     enum MessageType { VALUE_LOW_MSG, VALUE_HIGH_MSG, ERROR_MSG };
 
