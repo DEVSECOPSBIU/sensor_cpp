@@ -1,0 +1,29 @@
+name: Run Parasoft C++ Analysis
+
+on:
+  push:
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - '**.cxx'
+      - '**.hpp'
+      - '**.cc'
+      - '**.hh'
+
+jobs:
+  run-parasoft-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Generate Unique Build ID
+        run: echo "BUILD_ID=$(date +%s)" >> $GITHUB_ENV
+
+      - name: Run Parasoft C++test in Docker
+        run: |
+          docker exec cpp_project cpptestcli -config "builtin://SEI CERT C++ Rules" \
+            -compiler gcc_10-64 \
+            -property build.id="cpp_project-build_${{ env.BUILD_ID }}" \
+            -publish -- /usr/bin/g++ -c /home/parasoft/workspace_BIU_TEST/sensor_cpp/src/sensor_CPP.cpp -o /home/parasoft/workspace_BIU_TEST/sensor_cpp/src/sensor_CPP.o
