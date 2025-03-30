@@ -1,0 +1,8 @@
+# Ignore cpptest directory
+.cpptest/
+
+# Ignore specific Eclipse settings file
+.settings/org.eclipse.cdt.managedbuilder.core.prefs
+
+# Ignore reports directory
+reports/
